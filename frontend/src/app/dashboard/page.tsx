@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
+import { auth } from '@/lib/firebase';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { 
   Package, 
@@ -51,8 +52,12 @@ export default function DashboardPage() {
 
   const fetchDashboardData = async () => {
     try {
-      const token = userProfile?.role === 'store' ? 'store-token' : 
-                   userProfile?.role === 'warehouse' ? 'warehouse-token' : 'admin-token';
+      const currentUser = auth.currentUser;
+      if (!currentUser) {
+        throw new Error('No authenticated user');
+      }
+      
+      const token = await currentUser.getIdToken();
       
       const [statsResponse, lowStockResponse] = await Promise.all([
         fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/dashboard/stats`, {

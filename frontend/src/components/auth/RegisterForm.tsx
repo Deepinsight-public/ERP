@@ -14,7 +14,7 @@ export function RegisterForm() {
     password: '',
     confirmPassword: '',
     name: '',
-    role: 'store' as 'headquarter' | 'warehouse' | 'store',
+    role: 'headquarter' as 'headquarter' | 'warehouse' | 'store',
     companyCode: 'DEMO',
     storeId: '',
     warehouseId: ''

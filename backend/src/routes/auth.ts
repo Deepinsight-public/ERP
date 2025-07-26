@@ -15,8 +15,12 @@ router.post('/register', [
   body('warehouseId').optional().isInt()
 ], async (req: Request, res: Response) => {
   try {
+    console.log('Registration request body:', JSON.stringify(req.body, null, 2));
+    console.log('Registration request headers:', JSON.stringify(req.headers, null, 2));
+    
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+      console.log('Validation errors:', errors.array());
       return res.status(400).json({ errors: errors.array() });
     }
 

@@ -16,12 +16,6 @@ export const pool = new Pool({
 });
 
 export async function initializeDatabase() {
-  if (process.env.NODE_ENV === 'development') {
-    console.log('Running in development mode - skipping database initialization');
-    console.log('Using mock data for demo purposes');
-    return;
-  }
-  
   try {
     const client = await pool.connect();
     console.log('Database connected successfully');
