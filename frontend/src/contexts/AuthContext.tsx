@@ -53,9 +53,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const fetchUserProfile = async (firebaseUser: User) => {
     try {
-      const email = firebaseUser.email || '';
-      const token = email.includes('store') ? 'store-token' : 
-                   email.includes('warehouse') ? 'warehouse-token' : 'admin-token';
+      const token = await firebaseUser.getIdToken();
       
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/profile`, {
         headers: {
@@ -69,6 +67,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setUserProfile(data.user);
       } else {
         console.error('Failed to fetch user profile');
+        const email = firebaseUser.email || '';
         const mockProfile: UserProfile = {
           id: 1,
           email: firebaseUser.email || '',
@@ -111,7 +110,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
           firebaseUid: userCredential.user.uid,
