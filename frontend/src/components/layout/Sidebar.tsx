@@ -12,7 +12,8 @@ import {
   Users, 
   BarChart3, 
   Settings,
-  LogOut
+  LogOut,
+  TrendingUp
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -26,22 +27,37 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
   const { userProfile, logout } = useAuth();
 
   const getNavigationItems = () => {
-    const baseItems = [
-      { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-      { name: 'Products', href: '/products', icon: Package },
+    const storeItems = [
+      { name: 'Overview', href: '/dashboard', icon: LayoutDashboard },
+      { name: 'Sales', href: '/sales', icon: TrendingUp },
       { name: 'Inventory', href: '/inventory', icon: Warehouse },
-      { name: 'Orders', href: '/orders', icon: ShoppingCart },
+      { name: 'HR', href: '/hr', icon: Users },
+      { name: 'Finance', href: '/finance', icon: BarChart3 },
     ];
 
     if (userProfile?.role === 'headquarter') {
-      baseItems.push(
+      const headquarterItems = [
+        { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
+        { name: 'Products', href: '/products', icon: Package },
+        { name: 'Inventory', href: '/inventory', icon: Warehouse },
+        { name: 'Orders', href: '/orders', icon: ShoppingCart },
         { name: 'Customers', href: '/customers', icon: Users },
         { name: 'Reports', href: '/reports', icon: BarChart3 },
         { name: 'Settings', href: '/settings', icon: Settings }
-      );
+      ];
+      return headquarterItems;
     }
 
-    return baseItems;
+    if (userProfile?.role === 'warehouse') {
+      return [
+        { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
+        { name: 'Products', href: '/products', icon: Package },
+        { name: 'Inventory', href: '/inventory', icon: Warehouse },
+        { name: 'Orders', href: '/orders', icon: ShoppingCart },
+      ];
+    }
+
+    return storeItems;
   };
 
   const handleLogout = async () => {
