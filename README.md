@@ -1,83 +1,28 @@
 # ERP System - Multi-tenant Retail Management
 
-A full-stack ERP system with role-based access control and multi-tenant architecture built with Next.js 14, Node.js/Express, PostgreSQL, and Firebase authentication.
+A full-stack Enterprise Resource Planning (ERP) system designed for multi-tenant retail management. The system serves retail businesses by providing a comprehensive platform for managing products, inventory, orders, and operations across multiple locations (stores and warehouses) with role-based access control.
 
-## 🚀 Features
+## What This Project Is About
 
-### Phase 1 Deliverables (Completed)
-- ✅ Complete authentication system with Firebase integration
-- ✅ Role-based access control (Headquarter, Warehouse, Store)
-- ✅ Database setup with normalized Retailer schema
-- ✅ Multi-tenant architecture
-- ✅ Basic dashboard for each role with key metrics
-- ✅ Core CRUD operations for products, inventory, and orders
-- ✅ Responsive design with professional UI
-- ✅ Security implementation (input validation, CORS, role verification)
+This ERP system enables retail businesses to:
 
-### User Roles
-- **Headquarter (Admin)**: Complete system overview, manage all stores/warehouses
-- **Warehouse**: Inventory management and distribution operations
-- **Store**: Retail operations and customer management
+- **Manage Multiple Locations**: Coordinate operations across stores and warehouses
+- **Role-Based Access**: Three user roles with specific permissions:
+  - **Headquarter (Admin)**: Complete system oversight and management across all locations
+  - **Warehouse Managers**: Inventory management and distribution operations  
+  - **Store Managers**: Retail operations and customer management at specific locations
+- **Inventory Tracking**: Real-time stock levels across all locations
+- **Order Management**: Handle purchase orders, sales orders, and transfer orders
+- **Product Catalog**: Centralized product management with category organization
+- **Multi-Tenant Architecture**: Support multiple companies with isolated data
 
-## 🛠 Tech Stack
+## Tech Stack
 
-### Frontend
-- **Next.js 14** with App Router
-- **React 18** with TypeScript
-- **Tailwind CSS** for styling
-- **Radix UI** components
-- **Firebase Authentication**
-- **Lucide React** icons
+- **Frontend**: Next.js 14, React 18, TypeScript, Tailwind CSS, Firebase Authentication
+- **Backend**: Node.js, Express.js, TypeScript, PostgreSQL, Firebase Admin SDK
+- **Database**: AWS RDS PostgreSQL with normalized schema
 
-### Backend
-- **Node.js** with Express.js
-- **TypeScript** for type safety
-- **PostgreSQL** database
-- **Firebase Admin SDK**
-- **JWT** token validation
-- **CORS** and security middleware
-
-### Database
-- **AWS RDS PostgreSQL**
-- Normalized Retailer schema
-- Multi-tenant architecture
-- Foreign key relationships
-- Audit trails with timestamps
-
-## 📁 Project Structure
-
-```
-ERP/
-├── frontend/                 # Next.js 14 frontend application
-│   ├── src/
-│   │   ├── app/             # App Router pages
-│   │   │   ├── dashboard/   # Dashboard layout and pages
-│   │   │   ├── products/    # Product management
-│   │   │   ├── inventory/   # Inventory tracking
-│   │   │   ├── orders/      # Order management
-│   │   │   ├── login/       # Authentication pages
-│   │   │   └── register/
-│   │   ├── components/      # Reusable UI components
-│   │   │   ├── ui/          # Base UI components
-│   │   │   ├── auth/        # Authentication forms
-│   │   │   └── layout/      # Layout components
-│   │   ├── contexts/        # React contexts
-│   │   └── lib/             # Utilities and configurations
-│   └── package.json
-├── backend/                 # Node.js/Express backend
-│   ├── src/
-│   │   ├── config/          # Database and Firebase config
-│   │   ├── controllers/     # Route controllers
-│   │   ├── middleware/      # Authentication and error handling
-│   │   ├── models/          # Database models
-│   │   ├── routes/          # API routes
-│   │   ├── database/        # Migrations and seeds
-│   │   └── server.ts        # Express server setup
-│   └── package.json
-└── README.md
-```
-
-## 🚀 Getting Started
+## How to Run This Web Application Locally
 
 ### Prerequisites
 - Node.js 18+ and npm
@@ -86,7 +31,8 @@ ERP/
 
 ### Environment Setup
 
-#### Backend (.env)
+#### Backend Environment (.env)
+Create a `.env` file in the `backend/` directory:
 ```env
 # Database
 DB_HOST=localhost
@@ -105,7 +51,8 @@ PORT=3001
 NODE_ENV=development
 ```
 
-#### Frontend (.env.local)
+#### Frontend Environment (.env.local)
+Create a `.env.local` file in the `frontend/` directory:
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:3001
 NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
@@ -118,130 +65,33 @@ NEXT_PUBLIC_FIREBASE_APP_ID=1:123456789:web:abcdef123456
 
 ### Installation & Running
 
-#### Backend
+#### 1. Start the Backend Server
 ```bash
 cd backend
 npm install
 npm run dev
 ```
+The backend API will be available at: http://localhost:3001
 
-#### Frontend
+#### 2. Start the Frontend Application
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
+The frontend will be available at: http://localhost:3000
 
-The application will be available at:
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:3001
+### Development Authentication
 
-## 🔐 Authentication & Roles
-
-### Development Mode
-For development without full Firebase setup, the system uses mock authentication:
-- **admin@demo.com** → Headquarter role
-- **store@demo.com** → Store role  
-- **warehouse@demo.com** → Warehouse role
+For development without full Firebase setup, use these mock credentials:
+- **admin@demo.com** → Headquarter role (full system access)
+- **store@demo.com** → Store role (retail operations)
+- **warehouse@demo.com** → Warehouse role (inventory management)
 
 ### Production Setup
-1. Create a Firebase project
-2. Enable Authentication with Email/Password
+
+1. Create a Firebase project at https://console.firebase.google.com
+2. Enable Authentication with Email/Password provider
 3. Set up custom claims for role management
-4. Configure environment variables
-
-## 📊 Database Schema
-
-The system uses a normalized Retailer schema with:
-- **Companies**: Multi-tenant company management
-- **Users**: User accounts with role assignments
-- **Stores/Warehouses**: Location management
-- **Products**: Product catalog
-- **Inventory**: Stock tracking across locations
-- **Orders**: Purchase, sales, and transfer orders
-- **Order Items**: Detailed order line items
-
-## 🔒 Security Features
-
-- JWT token validation on all API endpoints
-- Role-based access control (RBAC)
-- Input validation and sanitization
-- SQL injection prevention
-- CORS configuration
-- Environment variable management
-- Secure Firebase integration
-
-## 🎨 UI/UX Features
-
-- Responsive design for desktop and tablet
-- Professional business interface
-- Role-specific navigation and permissions
-- Loading states and error handling
-- Real-time data updates
-- Intuitive dashboard with key metrics
-- Clean, modern design following business standards
-
-## 📱 Pages & Features
-
-### Dashboard
-- Role-specific overview and metrics
-- Key performance indicators
-- Recent activity feed
-- Low stock alerts
-- Quick action buttons
-
-### Products
-- Product catalog management
-- Search and filtering
-- Category organization
-- Stock level tracking
-- Price management
-
-### Inventory
-- Multi-location stock tracking
-- Low stock alerts
-- Inventory adjustments
-- Location-based filtering
-- Real-time stock levels
-
-### Orders
-- Purchase order management
-- Sales order processing
-- Transfer order handling
-- Order status tracking
-- Customer information
-
-## 🚧 Development Status
-
-### ✅ Phase 1 Complete
-- Authentication system with role-based access
-- Database setup with sample data
-- Basic dashboard for each role
-- Core CRUD operations for products, inventory, orders
-- Responsive UI with professional design
-
-### 🔄 Future Phases
-- Customer Management module
-- Advanced Reporting and Analytics
-- Real-time WebSocket updates
-- Advanced inventory features (transfers, adjustments)
-- Financial management and reporting
-- Mobile application
-- Advanced security features
-
-## 🤝 Contributing
-
-This project follows standard development practices:
-1. Create feature branches from main
-2. Follow TypeScript and ESLint rules
-3. Test changes locally before committing
-4. Create pull requests for review
-5. Ensure CI/CD pipeline passes
-
-## 📄 License
-
-This project is proprietary software developed for retail management purposes.
-
----
-
-**Built with ❤️ for modern retail operations**
+4. Configure the environment variables with your Firebase credentials
+5. Set up your PostgreSQL database with the required schema
